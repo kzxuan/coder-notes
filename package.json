@@ -1,0 +1,15 @@
+{
+  "name": "coder-notes",
+  "version": "0.1.0",
+  "description": "Coder notes.",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "author": "kzxuan",
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^2.0.0-beta.24"
+  }
+}
