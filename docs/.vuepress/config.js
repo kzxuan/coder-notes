@@ -7,5 +7,9 @@ module.exports = {
 
   themeConfig: {
     logo: '/logo.png',
-  },
+    navbar: [
+      { text: '语言', link: '/language/' },
+      { text: '算法', link: '/algorithm/' }
+    ],
+  }
 }
