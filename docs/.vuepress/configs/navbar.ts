@@ -5,7 +5,8 @@ export const content: NavbarConfig = [
     text: "语言与框架",
     link: "/language/",
     children: [
-        "/language/vue.md"
+        "/language/vue.md",
+        "/language/react.md"
     ],
   },
   {

@@ -16,9 +16,6 @@ export default defineUserConfig<DefaultThemeOptions>({
     editLink: false,
     lastUpdatedText: "上次更新",
     contributorsText: "贡献者",
-    tip: "提示",
-    warning: "注意",
-    danger: "警告",
     navbar: navbar.content,
   },
 });
