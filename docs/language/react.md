@@ -78,6 +78,10 @@ function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 
+const Welcome = (props) => {
+  return <h1>Hello, {props.name}</h1>;
+}
+
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -93,11 +97,18 @@ class Welcome extends React.Component {
 - 使用 `setState()` 修改 `state`，直接修改会导致组件渲染不生效。
 - `state` 的更新可能是异步的，因此需要让 `setState()` 接收一个函数而不是一个对象。
 - 数据是自上而下**单向流动**的。任何的 `state` 总是所属于特定的组件，而且从该 `state` 派生的任何数据或 UI 只能影响树中“低于”它们的组件。
+- 可以通过在 `componentDidUpdate` 中添加对 `prevProps` 或 `prevState` 的比较逻辑解决。
 
 ```js
 this.setState((state, props) => ({
   counter: state.counter + props.increment
 }));
+
+componentDidUpdate(prevProps, prevState) {
+  if (prevState.count !== this.state.count) {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+}
 ```
 
 ## 事件
@@ -540,3 +551,100 @@ function withSubscription(WrappedComponent, selectData) {
   };
 }
 ```
+
+## Hook
+
+### 动机
+
+- `Hook` 是 React 16.8 的新增特性。
+  它可以让你在不编写 `class` 的情况下使用 `state` 以及其他的 React 特性。
+- `Hook` 用以解决在组件之间复用状态逻辑很难、复杂组件变得难以理解等问题。
+
+### 概览
+
+- `Hook` 是一些可以在**函数组件**里“钩入” React `state` 及生命周期等特性的函数。
+- 只能在函数最外层调用 `Hook`。
+  不要在循环、条件判断或者子函数中调用。
+- 只能在 React 的函数组件中或自定义的 `Hook` 中调用 `Hook`。
+
+```js
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+::: warning Hook规则
+- 只在最顶层使用 Hook。
+- 只在 React 函数中调用 Hook。
+:::
+
+### State Hook
+
+- `useState` 唯一的参数就是初始 `state`，它会返回一对值：当前状态和一个更新它的函数。
+  函数类似 `class` 组件的 `this.setState`，但是它不会把新的 `state` 和旧的 `state` 进行合并。
+- 不同于 `class` 的是，可以按照需要使用数字或字符串对其进行赋值，而不一定是对象。
+  使用变量时，则可以直接使用，不需要通过 `this.state`。
+  更新 `state` 变量总是替换它而不是合并它。
+
+### Effect Hook
+
+- `useEffect` 给函数组件增加了操作副作用的能力。
+  它跟 `class` 组件中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 具有相同的用途，只不过被合并成了一个 API。
+- `useEffect` 会在**第一次渲染之后**和**每次更新之后**都会执行。
+- 和 `class` 组件中的方法不同，使用 `useEffect` 调度的 `effect` 不会阻塞浏览器更新屏幕，这让应用看起来响应更快。
+- 如果 `effect` 返回一个函数，React 会在组件卸载的时候执行清除操作，即调用它。
+- 如果某些特定值在两次重渲染之间没有发生变化，可以通知 React 跳过对 `effect` 的调用，只要传递数组作为 `useEffect` 的第二个可选参数即可。
+
+```js
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]);
+```
+
+::: tip
+- 使用多个 `effect` 实现关注点分离，将不相关逻辑分离到不同的 `effect` 中。
+- 如果想执行只运行一次的 `effect`（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。
+:::
+
+### 自定义 Hook
+
+- `Hook` 是一种复用状态逻辑的方式，它不复用 `state` 本身。
+- 自定义 `Hook` 更像是一种约定而不是功能。
+  如果函数的名字以 `use` 开头并调用其他 `Hook`，就说这是一个自定义 `Hook`。
+
+### Hook API
+
+#### useContext
+
+- 不使用组件嵌套就可以订阅 React 的 `Context`。
+- 接收一个 `context` 对象（`React.createContext` 的返回值）并返回该 `context` 的当前值。
+- 当前的 `context` 值由上层组件中距离当前组件最近的 `<MyContext.Provider>` 的 `value` 属性决定。
+
+```js
+const value = useContext(MyContext);
+```
+
+- `useReducer`：通过 `reducer` 来管理组件本地的复杂 `state`。
+- `useCallback`：把内联回调函数及依赖项数组作为参数传入 `useCallback`，它将返回该回调函数的 `memoized` 版本，该回调函数仅在某个依赖项改变时才会更新。
+- `useMemo`：把“创建”函数和依赖项数组作为参数传入 `useMemo`，它仅会在某个依赖项改变时才重新计算 `memoized` 值，这种优化有助于避免在每次渲染时都进行高开销的计算。
+- `useRef`：`useRef` 返回一个可变的 `ref` 对象，其 `.current` 属性被初始化为传入的参数。
+- `useImperativeHandle`：`useImperativeHandle` 可以在使用 `ref` 时自定义暴露给父组件的实例值。
+  它应当与 `forwardRef` 一起使用。
+- `useLayoutEffect`：其函数签名与 `useEffect` 相同，但它会在所有的 DOM 变更之后同步调用 `effect`。
+  可以使用它来读取 DOM 布局并同步触发重渲染。
+- `useDebugValue`：可用于在 React 开发者工具中显示自定义 hook 的标签。
