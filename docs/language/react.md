@@ -1,3 +1,7 @@
+---
+sidebar: 'auto'
+---
+
 # React
 
 ## 目录文件
