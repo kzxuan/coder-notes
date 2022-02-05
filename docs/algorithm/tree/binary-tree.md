@@ -50,7 +50,7 @@ class Solution:
 
 ## 105. 从前序与中序遍历序列构造二叉树 :star::star::fire:
 
-[leetcode](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+[LeetCode](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 当前序列中，**前序序列的第一个元素一定是当前的根节点**，并**在中序序列中刚好夹在左右子树序列中间**，因此递归思路非常简单。
 
@@ -106,7 +106,7 @@ class Solution:
 
 ## 106. 从中序与后序遍历序列构造二叉树 :star::star:
 
-[leetcode](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+[LeetCode](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
 
 :::: code-group
 ::: code-group-item 递归
@@ -156,7 +156,7 @@ class Solution:
 
 ## 652. 寻找重复的子树 :star::star:
 
-[leetcode](https://leetcode-cn.com/problems/find-duplicate-subtrees/)
+[LeetCode](https://leetcode-cn.com/problems/find-duplicate-subtrees/)
 
 
 ```python
@@ -183,7 +183,7 @@ class Solution:
 
 ## 654. 最大二叉树 :star::star:
 
-[leetcode](https://leetcode-cn.com/problems/maximum-binary-tree/)
+[LeetCode](https://leetcode-cn.com/problems/maximum-binary-tree/)
 
 用递归很常规，用栈维护比较有意思。
 
@@ -225,7 +225,7 @@ class Solution:
 
 ## 114. 二叉树展开为链表 :star::star:
 
-[leetcode](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/)
+[LeetCode](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/)
 
 :::: code-group
 ::: code-group-item 递归
@@ -270,7 +270,7 @@ class Solution:
 
 ## 116. 填充每个节点的下一个右侧节点指针 :star::star:
 
-[leetcode](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
+[LeetCode](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
 
 注意当前节点层已经连接好，所以 `root.right.next = root.next.left`。
 
@@ -315,3 +315,87 @@ class Solution:
 :::
 ::::
 
+## 297. 二叉树的序列化与反序列化 :star::star::star:
+
+[LeetCode](https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/)
+
+考虑前中后序和层次这几种常见的遍历方式。
+其中中序遍历可以完成序列化，但由于无法知晓根所在位置，不能完成反序列化。
+
+:::: code-group
+::: code-group-item 前序遍历
+```python
+class Codec:
+    def serialize(self, root: TreeNode) -> string:
+        def traverse(root: TreeNode):
+            if not root:
+                data.append("#")
+            else:
+                # 根左右序列化
+                data.append(str(root.val))
+                traverse(root.left)
+                traverse(root.right)
+
+        data = []
+        traverse(root)
+        return ",".join(data)
+
+
+    def deserialize(self, data: string) -> TreeNode:
+        # 由于空节点全部被标记，前序时不需要考虑额外的节点位置信息，为空时置None即可
+        def traverse(data: string) -> TreeNode:
+            if not data:
+                return None
+            # 第一个元素为当前根
+            val = data.pop(0)
+            if val == "#":
+                return None
+            else:
+                # 按根左右复原
+                root = TreeNode(int(val))
+                root.left = traverse(data)
+                root.right = traverse(data)
+                return root
+
+        data = data.split(",")
+        return traverse(data)
+```
+:::
+::: code-group-item 后序遍历
+```python
+class Codec:
+    def serialize(self, root: TreeNode) -> string:
+        def traverse(root: TreeNode):
+            if not root:
+                data.append("#")
+            else:
+                # 左右根序列化
+                traverse(root.left)
+                traverse(root.right)
+                data.append(str(root.val))
+
+        data = []
+        traverse(root)
+        return ",".join(data)
+
+
+    def deserialize(self, data: string) -> TreeNode:
+        def traverse(data):
+            if not data:
+                return None
+            # 最后一个元素为当前根
+            val = data.pop(-1)
+            if val == "#":
+                return None
+            else:
+                # 按根右左复原
+                root = TreeNode(int(val))
+                root.right = traverse(data)
+                root.left = traverse(data)
+                return root
+
+        data = data.split(",")
+        return traverse(data)
+```
+:::
+::::

@@ -6,6 +6,7 @@ export const content: SidebarConfig = {
             text: "数组",
             children: [
                 "/algorithm/array/linked-list.md",
+                "/algorithm/array/prefix-sum.md",
                 "/algorithm/array/difference-array.md"
             ]
         }

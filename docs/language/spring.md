@@ -6,7 +6,7 @@ sidebar: 'auto'
 
 ## Spring 基础
 
-### Spring 是什么?
+### Spring 是什么？
 Spring 是一个轻量级的 **IoC** 和 **AOP** 容器框架，是为 Java 应用程序提供基础性服务的一套框架，目的是用于简化企业应用程序的开发，它使得开发者只需要关心业务需求。
 
 主要包括以下七个模块：
@@ -26,7 +26,7 @@ Spring 是一个轻量级的 **IoC** 和 **AOP** 容器框架，是为 Java 应�
 
 ## AOP
 
-[切面AOP实现权限校验](https://blog.csdn.net/mu_wind/article/details/102758005)
+[切面 AOP 实现权限校验](https://blog.csdn.net/mu_wind/article/details/102758005)
 
 ### 概念
 
