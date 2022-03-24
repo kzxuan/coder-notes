@@ -1,0 +1,1 @@
+const t={key:"v-4112f2c5",path:"/algorithm/string/",title:"\u5B57\u7B26\u4E32",lang:"zh-CN",frontmatter:{title:"\u5B57\u7B26\u4E32"},excerpt:"",headers:[],git:{updatedTime:1644054838e3,contributors:[{name:"\u6211\u8BF4\u4EC0\u4E48\u3002",email:"kzxuan@qq.com",commits:1}]},filePathRelative:"algorithm/string/README.md"};export{t as data};

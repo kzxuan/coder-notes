@@ -1,0 +1,1 @@
+import{o as e,c as o,a as t,b as r}from"./app.e5ee52ef.js";import{_ as s}from"./plugin-vue_export-helper.21dcd24c.js";const a={},c={id:"coder-notes",tabindex:"-1"},n=t("a",{class:"header-anchor",href:"#coder-notes","aria-hidden":"true"},"#",-1),d=r(" Coder Notes"),_=[n,d];function i(h,f){return e(),o("h1",c,_)}var x=s(a,[["render",i]]);export{x as default};
