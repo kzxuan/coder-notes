@@ -9,9 +9,12 @@
   },
   "author": "kzxuan",
   "license": "ISC",
+  "dependencies": {
+    "prismjs": ">=1.27.0"
+  },
   "devDependencies": {
     "vuepress": "^2.0.0-beta.35",
     "nth-check": "^2.0.1",
-    "prismjs": "^1.25.0"
+    "prismjs": ">=1.27.0"
   }
 }

@@ -13,6 +13,7 @@ export const content: NavbarConfig = [
     {
         text: "数据结构与算法", link: "/algorithm/",
         children: [
+            "/algorithm/string/",
             "/algorithm/array/",
             "/algorithm/tree/"
         ],

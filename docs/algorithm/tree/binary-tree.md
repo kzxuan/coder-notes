@@ -9,9 +9,10 @@ class TreeNode:
         self.right = right
 ```
 
-## 226. 翻转二叉树 :star:
+## 226. 翻转二叉树
 
 [LeetCode](https://leetcode-cn.com/problems/invert-binary-tree/)
+:star:
 
 :::: code-group
 ::: code-group-item 递归
@@ -28,7 +29,7 @@ class Solution:
 ```
 :::
 
-::: code-group-item 层次遍历
+::: code-group-item 迭代
 ```python
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
@@ -48,9 +49,10 @@ class Solution:
 :::
 ::::
 
-## 105. 从前序与中序遍历序列构造二叉树 :star::star::fire:
+## 105. 从前序与中序遍历序列构造二叉树
 
 [LeetCode](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+:star::star::fire:
 
 当前序列中，**前序序列的第一个元素一定是当前的根节点**，并**在中序序列中刚好夹在左右子树序列中间**，因此递归思路非常简单。
 
@@ -76,7 +78,7 @@ class Solution:
         return TreeNode(root_val, left, right)
 ```
 :::
-::: code-group-item 栈
+::: code-group-item 迭代
 ```python
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
@@ -104,9 +106,10 @@ class Solution:
 :::
 ::::
 
-## 106. 从中序与后序遍历序列构造二叉树 :star::star:
+## 106. 从中序与后序遍历序列构造二叉树
 
 [LeetCode](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+:star::star:
 
 :::: code-group
 ::: code-group-item 递归
@@ -125,7 +128,7 @@ class Solution:
         return TreeNode(root_val, left, right)
 ```
 :::
-::: code-group-item 栈
+::: code-group-item 迭代
 ```python
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
@@ -154,10 +157,10 @@ class Solution:
 :::
 ::::
 
-## 652. 寻找重复的子树 :star::star:
+## 652. 寻找重复的子树
 
 [LeetCode](https://leetcode-cn.com/problems/find-duplicate-subtrees/)
-
+:star::star:
 
 ```python
 class Solution:
@@ -181,9 +184,10 @@ class Solution:
         return result
 ```
 
-## 654. 最大二叉树 :star::star:
+## 654. 最大二叉树
 
 [LeetCode](https://leetcode-cn.com/problems/maximum-binary-tree/)
+:star::star:
 
 用递归很常规，用栈维护比较有意思。
 
@@ -202,7 +206,7 @@ class Solution:
         return TreeNode(val, left, right)
 ```
 :::
-::: code-group-item 栈
+::: code-group-item 迭代
 ```python
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
@@ -223,9 +227,10 @@ class Solution:
 :::
 ::::
 
-## 114. 二叉树展开为链表 :star::star:
+## 114. 二叉树展开为链表
 
 [LeetCode](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/)
+:star::star:
 
 :::: code-group
 ::: code-group-item 递归
@@ -247,7 +252,7 @@ class Solution:
             p.right = right
 ```
 :::
-::: code-group-item 非递归
+::: code-group-item 迭代
 ```python
 class Solution:
     def flatten(self, root: TreeNode) -> None:
@@ -268,9 +273,10 @@ class Solution:
 :::
 ::::
 
-## 116. 填充每个节点的下一个右侧节点指针 :star::star:
+## 116. 填充每个节点的下一个右侧节点指针
 
 [LeetCode](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
+:star::star:
 
 注意当前节点层已经连接好，所以 `root.right.next = root.next.left`。
 
@@ -292,18 +298,18 @@ class Solution:
         return root
 ```
 :::
-::: code-group-item 层次遍历
+::: code-group-item 迭代
 ```python
 # 根据题目特点使用双指针循环
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         p = root
-        # p始终指向每一行的第一个元素
+        # p 始终指向每一行的第一个元素
         while p:
             q = p
-            # q始终在当前行里向后遍历
+            # q 始终在当前行里向后遍历
             while q and q.left:
-                # 修改q的子节点，完成下一行的连接
+                # 修改 q 的子节点，完成下一行的连接
                 q.left.next = q.right
                 if q.right and q.next:
                     q.right.next = q.next.left
@@ -315,9 +321,10 @@ class Solution:
 :::
 ::::
 
-## 297. 二叉树的序列化与反序列化 :star::star::star:
+## 297. 二叉树的序列化与反序列化
 
 [LeetCode](https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/)
+:star::star::star:
 
 考虑前中后序和层次这几种常见的遍历方式。
 其中中序遍历可以完成序列化，但由于无法知晓根所在位置，不能完成反序列化。
@@ -342,7 +349,7 @@ class Codec:
 
 
     def deserialize(self, data: string) -> TreeNode:
-        # 由于空节点全部被标记，前序时不需要考虑额外的节点位置信息，为空时置None即可
+        # 由于空节点全部被标记，前序时不需要考虑额外的节点位置信息，为空时置 None 即可
         def traverse(data: string) -> TreeNode:
             if not data:
                 return None
